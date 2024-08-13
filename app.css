@@ -1,0 +1,35 @@
+* {
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing:auto;
+    /* font-size: 62.5%; */
+}
+
+:root {
+    --bg-color: #4158D0;
+    --bg-img: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    --txt-color: rgb(196, 196, 196);
+    --form-bg: rgb(245, 245, 245);
+    --border: 2px solid #e7dddd;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: auto;
+    background-color: var(--bg-color);
+    background-image: var(--bg-img);
+}
+
+#regForm {
+
+    background-color: var(--form-bg);
+    border-radius: 0.6em;
+    border: var(--border);
+    max-width: 600px;
+}
+
+.footer {
+    margin-top:auto;
+}
