@@ -1,16 +1,38 @@
 * {
     font-family: "Poppins", sans-serif;
     font-optical-sizing:auto;
-    /* font-size: 62.5%; */
 }
 
 :root {
     --bg-color: #4158D0;
     --bg-img: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     --txt-color: rgb(196, 196, 196);
-    --form-bg: rgb(245, 245, 245);
+    --form-bg: rgb(245 245 245 / 42%);
     --border: 2px solid #e7dddd;
+    --b-shadow: 0px 2px 20px 6px #0006;
+}
 
+:root.dark {
+    --bg-color: #191717;
+    --bg-img: linear-gradient(43deg, #191717 0%, #000000 46%, #8e8e8e 100%);
+    --txt-color: rgb(196, 196, 196);
+    --form-bg: rgb(0, 0, 0 / 42%);
+    --border: 2px solid #969393;
+    --b-shadow: 0px 2px 20px 6px rgba(255, 255, 255, 0.4);
+    h1, p, label, legend {
+        color: white
+    };
+}
+
+#themeSwitch {
+    position:absolute;
+    right: 0;
+    transition-duration: 0.4s;
+    text-transform: uppercase;
+}
+
+#themeSwitch:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 body {
@@ -23,11 +45,11 @@ body {
 }
 
 #regForm {
-
     background-color: var(--form-bg);
     border-radius: 0.6em;
     border: var(--border);
     max-width: 600px;
+    box-shadow: var(--b-shadow);
 }
 
 .footer {
