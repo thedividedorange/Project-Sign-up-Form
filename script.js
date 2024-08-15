@@ -84,16 +84,6 @@ document.addEventListener('DOMContentLoaded', function(){
   
         return validations.every(Boolean);
     }
-
-    function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/
-        return re.test(email)
-    }
-    
-    function validatePhone(num) {
-        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-        return re.test(num)
-    }
     
     function handleFormSubmit(e){
         e.preventDefault()
