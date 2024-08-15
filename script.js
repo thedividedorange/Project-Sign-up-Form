@@ -1,73 +1,117 @@
 document.addEventListener('DOMContentLoaded', function(){
-    const switchTheme = document.querySelector('#themeSwitch')
-    switchTheme.addEventListener('click', ()=>{
+    function toggleTheme(){
         document.documentElement.classList.toggle("dark")
-        switchTheme.classList.toggle('btn-warning')
-        switchTheme.classList.toggle('btn-danger')
-    })
+        switchThemeButton.classList.toggle('btn-warning')
+        switchThemeButton.classList.toggle('btn-danger')
+    }
 
-    function validateField(field, fieldName, errorLabel){
-        const error = document.getElementById(errorLabel)
-        error.textContent = ``
-    
-        if(field.type === `text`){
-            if(!field.value){
-                error.textContent = `${fieldName} cannot be Blank!`
-                return false;
-            } else if(!isNaN(field.value)){
-                error.textContent = `${fieldName} cannot be a Number!`
-                return false
-            }
-        } else if(field.type ===`date`){
-            if(!field.value){
-                error.textContent = `${fieldName} cannot be Blank!`
-                return false;
-            }
-        } else if(field.type ===`email`){
-            if (!validateEmail(field.value)) {
-                error.textContent = `${fieldName} Format is Incorrect!`
-                return false
-            }
-        } else if(field.type ===`number`){
-            if(!validatePhone(field.value)){
-                error.textContent = `${fieldName} Enter a Valid Phone Number!`
-                return false
-            }
+    function validateField(field, fieldName, errorLabelId) {
+        const errorLabel = document.getElementById(errorLabelId)
+        errorLabel.textContent = ''
+
+        const validationMap = {
+            'text': validateTextField,
+            'date': validateDateField,
+            'email': validateEmailField,
+            'number': validatePhoneField
+        };
+
+        const validationFn = validationMap[field.type]
+        return validationFn(field, fieldName, errorLabel)
+    }
+
+    function validateTextField(field, fieldName, errorLabel) {
+        if (!field.value) {
+            errorLabel.textContent = `${fieldName} cannot be blank!`
+            return false
+        }
+        if (!isNaN(field.value)) {
+            errorLabel.textContent = `${fieldName} cannot be a number!`
+            return false
         }
         return true
     }
-    
-    function validateform() {
-        const fname = document.getElementById('fname')
-        const bday = document.getElementById('bday')
-        const email = document.getElementById('email')
-        const phone = document.getElementById('phone')
-    
-        const fnameValid = validateField(fname, `first name`, `fnameError`)
-        const bdayValid = validateField(bday, `Date`, `dateError`)
-        const emailValid = validateField(email, `Email`, `emailError`)
-        const phoneValid = validateField(phone, `Phone`, `phoneError`)
-  
-        return fnameValid && bdayValid && emailValid && phoneValid
+
+    function validateDateField(field, fieldName, errorLabel) {
+        if (!field.value) {
+            errorLabel.textContent = `${fieldName} cannot be blank!`
+            return false
+        }
+        return true
+    }
+
+    function validateEmailField(field, fieldName, errorLabel) {
+        if (!validateEmail(field.value)) {
+            errorLabel.textContent = `${fieldName} format is incorrect!`
+            return false
+        }
+        return true
+    }
+
+    function validatePhoneField(field, fieldName, errorLabel) {
+        if (!validatePhone(field.value)) {
+            errorLabel.textContent = `${fieldName} must be a valid phone number!`
+            return false
+        }
+        return true
     }
 
     function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
+        const emailPattern = /\S+@\S+\.\S+/
+        return emailPattern.test(email)
+    }
+
+    function validatePhone(phone) {
+        const phonePattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+        return phonePattern.test(phone)
+    }
+    
+    function validateform() {
+
+        const formInputs = {
+            fname : document.getElementById('fname'),
+            bday : document.getElementById('bday'),
+            email : document.getElementById('email'),
+            phone : document.getElementById('phone')
+        }
+
+        const validations = [
+            validateField(formInputs.fname, `first name`, `fnameError`),
+            validateField(formInputs.bday, `Date`, `dateError`),
+            validateField(formInputs.email, `Email`, `emailError`),
+            validateField(formInputs.phone, `Phone`, `phoneError`)
+        ]
+  
+        return validations.every(Boolean);
+    }
+
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/
+        return re.test(email)
     }
     
     function validatePhone(num) {
-        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-        return re.test(num);
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+        return re.test(num)
     }
-
-    document.getElementById('sigupForm').addEventListener('submit', function(e){
+    
+    function handleFormSubmit(e){
         e.preventDefault()
     
         if(validateform()){
-            document.getElementById('sigupForm').style.display = `none`
-            document.getElementById('success').style.display = `inline-block`
+            displaySuccessMessage()
         }
-    })
-    
+    }
+
+    function displaySuccessMessage() {
+        signupForm.style.display = 'none'
+        successMessage.style.display = 'inline-block'
+    }
+
+    const switchThemeButton = document.querySelector('#themeSwitch')
+    const signupForm = document.getElementById('sigupForm')
+    const successMessage = document.getElementById('success')
+
+    switchThemeButton.addEventListener('click', toggleTheme)
+    signupForm.addEventListener('submit', handleFormSubmit)
 })
