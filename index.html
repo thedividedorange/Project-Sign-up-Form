@@ -20,25 +20,27 @@
 
     <div class="container-fluid d-flex align-items-center justify-content-center my-auto">
         <div id="regForm" class="container-md p-5 mt-5">
-            <form action="#" class="row g-3 row-gap-3">
+            <form id="sigupForm" action="#" method="post" class="row g-3 row-gap-3">
                 <h1 class="display-6 fw-bold">Registration Form</h1>
                 <div class="col-md-6">
-                    <label for="fname" class="form-label fs-6">First Name</label>
-                    <input type="text" class="form-control" id="fname">
+                    <label for="fname" class="form-label fs-6">First Name*</label>
+                    <input type="text" class="form-control" id="fname" name="fname">
+                    <label id="fnameError"for="fname" class="form-label fs-6 text-danger fw-bold"></label>
                 </div>
                 <div class="col-md-6">
                     <label for="lname" class="form-label fs-6">Last Name</label>
-                    <input type="text" class="form-control" id="lname">
+                    <input type="text" class="form-control" id="lname" name="lname">
                 </div>
                 <div class="col-md-6">
-                    <label for="bday" class="form-label fs-6">Birthday</label>
-                    <input type="date" class="form-control" id="bday">
+                    <label for="bday" class="form-label fs-6">Birthday*</label>
+                    <input type="date" class="form-control" id="bday" name="bday">
+                    <label id="dateError"for="bday" class="form-label fs-6 text-danger fw-bold"></label>
                 </div>
                 <fieldset class="col-md-6">
-                    <legend class="col-form-label col-sm-2 fs-6">Gender</legend>
+                    <legend class="col-form-label col-sm-2 fs-6">Gender*</legend>
                     <div class="d-flex column-gap-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" value="m" id="male">
+                            <input class="form-check-input" type="radio" name="gender" value="m" id="male" checked>
                             <label class="form-check-label" for="male">Male</label>
                         </div>
                         <div class="form-check">
@@ -48,12 +50,14 @@
                     </div>
                 </fieldset>
                 <div class="col-md-6">
-                    <label for="email" class="form-label fs-6">Email</label>
-                    <input type="text" class="form-control" id="email">
+                    <label for="email" class="form-label fs-6">Email*</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                    <label id="emailError" for="email" class="form-label fs-6 text-danger fw-bold"></label>
                 </div>
                 <div class="col-md-6">
-                    <label for="phone" class="form-label fs-6">Phone</label>
-                    <input type="number" class="form-control" id="phone">
+                    <label for="phone" class="form-label fs-6">Phone*</label>
+                    <input type="number" class="form-control" id="phone" name="phone">
+                    <label id="phoneError" for="phone" class="form-label fs-6 text-danger fw-bold"></label>
                 </div>
                 <select class="col mx-2 form-select form-select-sm" aria-label="Select Options">
                     <option selected>Choose option</option>
@@ -62,9 +66,10 @@
                     <option value="3">Option Three</option>
                 </select>
                 <div class="col-12 d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
+            <div id="success" class="col-12 text-center"style="display:none">Form Successfully Submitted</div>
         </div>
     </div>
 
